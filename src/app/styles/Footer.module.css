@@ -1,0 +1,52 @@
+.footer {
+  background: #1a202c;
+  color: white;
+  padding: 4rem 0 2rem;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.brand h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.brand p {
+  color: #a0aec0;
+  max-width: 500px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.bottom {
+  border-top: 1px solid #2d3748;
+  padding-top: 2rem;
+  text-align: center;
+  color: #a0aec0;
+  font-size: 0.875rem;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .footer {
+    padding: 3rem 0 1.5rem;
+  }
+
+  .content {
+    margin-bottom: 2rem;
+  }
+
+  .brand h3 {
+    font-size: 1.25rem;
+  }
+
+  .brand p {
+    font-size: 0.9rem;
+  }
+}

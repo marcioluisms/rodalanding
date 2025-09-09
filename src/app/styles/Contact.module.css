@@ -1,0 +1,130 @@
+.contact {
+  background: white;
+}
+
+.formWrapper {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
+  margin-top: 3rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.formGroup {
+  position: relative;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background: #f8fafc;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: #94a3b8;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.125rem;
+  margin-top: 1rem;
+}
+
+.contactInfo {
+  padding: 2rem;
+  background: #f8fafc;
+  border-radius: 1rem;
+  height: fit-content;
+}
+
+.contactInfo h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: var(--text);
+}
+
+.contactInfo p {
+  color: var(--neutral);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* Animação de entrada */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.formWrapper {
+  animation: slideUp 0.6s ease forwards;
+}
+
+/* Responsividade */
+@media (max-width: 968px) {
+  .formWrapper {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .contactInfo {
+    order: -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .input,
+  .textarea {
+    padding: 0.875rem;
+  }
+
+  .submitButton {
+    padding: 0.875rem;
+    font-size: 1rem;
+  }
+
+  .contactInfo {
+    padding: 1.5rem;
+  }
+}

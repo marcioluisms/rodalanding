@@ -6,7 +6,7 @@ import styles from '../styles/WhatsAppButton.module.css'
 export default function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/5511999999999?text=Olá!+Gostaria+de+saber+mais."
+      href="https://wa.me/5524992021693?text=Olá!+Gostaria+de+saber+mais."
       target="_blank"
       rel="noopener noreferrer"
       className={styles.whatsappButton}

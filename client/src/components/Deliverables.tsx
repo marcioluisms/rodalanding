@@ -1,0 +1,48 @@
+import { motion } from "framer-motion";
+import { content } from "@/content";
+import { Package, Workflow, Database, LayoutDashboard, Link2 } from "lucide-react";
+
+const icons = [Package, Workflow, Database, LayoutDashboard, Link2];
+
+export function Deliverables() {
+  return (
+    <section className="py-14 md:py-20 px-4 bg-secondary/30 anchor-offset" id="entregamos">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-foreground mb-2">O Que Entregamos</h2>
+          <p className="text-sm md:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mt-2">
+            Solução completa e integrada para automatizar seus processos
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {content.entregamos.map((item, index) => {
+            const Icon = icons[index % icons.length];
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+                className="p-5 md:p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl shadow-sm hover:shadow-md transition-shadow"
+                data-testid={`card-deliverable-${index}`}
+              >
+                <div className="w-12 h-12 bg-primary/10 dark:bg-white/10 rounded-lg flex items-center justify-center mb-4">
+                  <Icon className="w-5 h-5 text-primary dark:text-white" aria-hidden="true" />
+                </div>
+                <p className="text-sm md:text-base text-foreground leading-relaxed">{item}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

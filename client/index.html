@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roda IA — Automação & IA sob medida</title>
+    <meta name="description" content="MVP de automação e IA em 14 dias. Reduzimos trabalho manual, integramos canais e damos visão em tempo real da operação." />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://roda.ia.br/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://roda.ia.br/" />
+    <meta property="og:title" content="Roda IA — Automação & IA sob medida" />
+    <meta property="og:site_name" content="Roda IA" />
+    <meta property="og:description" content="MVP de automação e IA em 14 dias. Reduzimos trabalho manual, integramos canais e damos visão em tempo real da operação." />
+    <meta property="og:image" content="https://roda.ia.br/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:locale" content="pt_BR" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://roda.ia.br/" />
+    <meta name="twitter:title" content="Roda IA — Automação & IA sob medida" />
+    <meta name="twitter:description" content="MVP de automação e IA em 14 dias. Reduzimos trabalho manual, integramos canais e damos visão em tempo real." />
+    <meta name="twitter:image" content="https://roda.ia.br/og.png" />
+    <meta name="twitter:image:alt" content="Roda IA - Consultoria de Automação e IA" />
+    
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    
+    <!-- Preconnect for fonts (performance optimization) -->
+    <link rel="preconnect" href="https://rsms.me" crossorigin />
+    <link rel="dns-prefetch" href="https://rsms.me" />
+    
+    <!-- Inter Font with font-display swap -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <style>
+      @supports (font-variation-settings: normal) {
+        :root { font-family: 'Inter', sans-serif; }
+      }
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 100 900;
+        font-display: swap;
+        src: url('https://rsms.me/inter/font-files/Inter-roman.var.woff2') format('woff2');
+      }
+    </style>
+    
+    <!-- GitHub Pages SPA routing -->
+    <script>
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

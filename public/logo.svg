@@ -1,11 +1,6 @@
-<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M40 25C40 31.0751 37.3661 36.5751 33.0353 40.3657C28.7045 44.1562 22.9391 46 17 46C11.0609 46 5.29553 44.1562 0.964689 40.3657C-3.36615 36.5751 -6 31.0751 -6 25C-6 18.9249 -3.36615 13.4249 0.964689 9.63428C5.29553 5.84374 11.0609 4 17 4C22.9391 4 28.7045 5.84374 33.0353 9.63428C37.3661 13.4249 40 18.9249 40 25Z" fill="url(#paint0_linear)"/>
-  <path d="M60 25L80 15V35L60 25Z" fill="#2ecc71"/>
-  <text x="90" y="35" fill="#1a202c" font-family="Arial" font-size="24" font-weight="bold">RODA</text>
-  <defs>
-    <linearGradient id="paint0_linear" x1="-6" y1="25" x2="40" y2="25" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#0066cc"/>
-      <stop offset="1" stop-color="#2ecc71"/>
-    </linearGradient>
-  </defs>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Roda IA">
+  <circle cx="128" cy="128" r="128" fill="#0A0A0A"/>
+  <text x="50%" y="56%" text-anchor="middle" dominant-baseline="middle"
+    font-family="Inter, system-ui, -apple-system, Segoe UI, Arial, sans-serif"
+    font-size="140" font-weight="700" fill="#FFFFFF">R</text>
 </svg>

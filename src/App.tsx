@@ -18,12 +18,12 @@ export default function App() {
               <h2 className="text-lg sm:text-2xl font-black tracking-tighter uppercase text-white">Roda IA</h2>
             </a>
             <a 
-              className="bg-gradient-to-br from-primary to-secondary text-slate-900 px-3 py-2 sm:px-5 sm:py-2.5 rounded text-[10px] sm:text-sm font-bold hover:brightness-110 transition-all uppercase tracking-wider shadow-lg shadow-primary/20 text-center" 
+              className="bg-gradient-to-br from-primary to-secondary text-slate-900 px-3 py-2 sm:px-5 sm:py-2.5 rounded text-[10px] sm:text-sm font-bold hover:brightness-110 transition-all tracking-wider shadow-lg shadow-primary/20 text-center" 
               href="https://wa.me/5524993183300"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Agendar <span className="hidden sm:inline">Diagnóstico</span>
+              Agendar <span className="hidden sm:inline">diagnóstico</span>
             </a>
           </div>
         </div>
@@ -48,12 +48,12 @@ export default function App() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Agende um diagnóstico de processos gratuito.
+                  Agendar diagnóstico gratuito
                 </a>
               </div>
               <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-medium text-primary/80">
                 <BadgeCheck className="w-5 h-5 shrink-0" />
-                <span>Liderado por Especialistas em Administração</span>
+                <span>Liderado por Administrador de Empresas</span>
               </div>
             </div>
             <div className="flex-1 w-full max-w-md mx-auto lg:max-w-[600px] aspect-square relative mt-12 lg:mt-0">
@@ -74,10 +74,10 @@ export default function App() {
               Visão Estratégica
             </div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight">
-              Você não precisa de mais um software para gerir. Você precisa de <span className="underline decoration-primary decoration-4 underline-offset-4 sm:underline-offset-8">engenharia de processos.</span>
+              Sua empresa não precisa de mais softwares; ela precisa de <span className="underline decoration-primary decoration-4 underline-offset-4 sm:underline-offset-8">engenharia de processos.</span>
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 leading-relaxed">
-              A maioria das PMEs se convence de que precisam de 10 softwares famosos e 2 agências aleatórias. O que elas não avaliam é que seus processos internos e o marketing seguem mal definidos. O resultado? Gastos excessivos para poucos resultados em conversão. Nosso diferencial: não somos apenas programadores de IA, somos obcecados pela ciência em Administração de Empresas.
+              O equívoco comum de muitas PMEs é buscar eficiência em ferramentas isoladas e agências externas enquanto negligenciam a base de seus fluxos internos e da estratégia de marketing, o que invariavelmente eleva os custos e compromete a conversão. Nosso diferencial reside na convergência entre a tecnologia de IA e o rigor da ciência da administração, garantindo que a inovação atue como um catalisador de performance operacional, e não apenas como mais uma camada de complexidade.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 pt-8 sm:pt-12">
               <div className="flex flex-col p-6 bg-white border border-slate-200 rounded-xl shadow-sm hover:border-primary/30 transition-colors">
@@ -151,7 +151,7 @@ export default function App() {
                 <div className="p-6 sm:p-8 space-y-3 sm:space-y-4 flex-1 flex flex-col">
                   <h3 className="text-lg sm:text-xl font-bold">Marketing e Mídia</h3>
                   <p className="text-sm sm:text-base text-slate-400 leading-relaxed flex-1">
-                    Conhecemos a indústria. Fazemos o direcionamento do seu produto, planejamento de mídia e ações 360° para tração comercial.
+                    Fazemos o direcionamento do seu produto, planejamento de mídia e ações 360° para tração comercial.
                   </p>
                 </div>
               </div>
@@ -187,10 +187,10 @@ export default function App() {
           <div className="absolute bottom-0 left-0 w-full sm:w-1/4 h-1/2 bg-secondary/5 blur-3xl -z-10 rounded-full"></div>
           <div className="max-w-5xl mx-auto px-4 text-center space-y-8 sm:space-y-10">
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-slate-900 leading-[1.1]">
-              Pronto para acabar com processos confusos e assumir a <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent italic">liderança automática?</span>
+              Transite da fragmentação de processos para uma gestão fluida e estratégica
             </h2>
             <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
-              Converse agora com a nossa equipe de administradores e engenheiros em processos e descubra quanto tempo sua inteligência poderia começar a te salvar.
+              Dialogue com nossos especialistas em engenharia de processos e administração para mensurar o impacto que a inteligência operacional terá na recuperação do seu tempo e na escalabilidade real do seu negócio.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
               <a 
@@ -199,7 +199,7 @@ export default function App() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Quero avaliar e escalar a minha empresa agora.
+                Agendar conversa com um especialista
               </a>
             </div>
             <div className="pt-8 flex flex-col sm:flex-row flex-wrap justify-center items-center gap-4 sm:gap-8 lg:gap-12 opacity-80">

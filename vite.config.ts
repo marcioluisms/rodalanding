@@ -16,14 +16,14 @@ export default defineConfig(({mode}) => {
       emptyOutDir: true,
       rollupOptions: {
         input: {
-          main: path.resolve(__dirname, 'index.html'),
-          bentogastronomia: path.resolve(__dirname, 'bentogastronomia/index.html')
+          main: path.resolve(process.cwd(), 'index.html'),
+          bentogastronomia: path.resolve(process.cwd(), 'bentogastronomia/index.html')
         }
       }
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, '.'),
+        '@': path.resolve(process.cwd(), '.'),
       },
     },
     server: {

@@ -2,7 +2,6 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
-// Config para Vercel: saída em dist/ (index.html na raiz do dist)
 export default defineConfig({
   plugins: [react()],
   build: {
@@ -11,13 +10,12 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
-        bentogastronomia: resolve(__dirname, 'bentogastronomia/index.html')
+        main: resolve(process.cwd(), 'index.html'),
+        bentogastronomia: resolve(process.cwd(), 'bentogastronomia/index.html')
       }
     }
   },
   resolve: {
-    // Se você usa import com "@/..." no código, deixe este alias.
     alias: { '@': '/src' },
   },
 })

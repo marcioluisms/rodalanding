@@ -1,176 +1,230 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roda IA | Inteligência Operacional</title>
-    <style>
-        /* RESET E BASE */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#66ffdb",
+                        "background-light": "#f8fafc",
+                        "background-dark": "#0f231e",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: #0a192f; /* Azul Profundo (Navy) */
-            color: #8892b0; /* Cinza Azulado para texto */
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
         }
-        h1, h2, h3 { color: #ccd6f6; /* Branco Gelo para títulos */ font-weight: 600; }
-        a { text-decoration: none; transition: 0.3s; }
-        
-        /* UTILITARIOS */
-        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
-        .highlight { color: #64ffda; /* Ciano Neon (O "Cérebro") */ }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            border: 1px solid #64ffda;
-            color: #64ffda;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            margin-top: 20px;
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
-        .btn:hover { background-color: rgba(100, 255, 218, 0.1); cursor: pointer; }
-
-        /* HEADER */
-        header {
-            padding: 30px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        /* Novo container para a logo e o texto ficarem juntos */
-        .logo-container {
-            display: flex;
-            align-items: center;
-        }
-
-        /* Classe para controlar o tamanho da Logo (Mantendo tamanho maior) */
-        .logo-img {
-            height: 140px; 
-            width: auto;
-            display: block;
-        }
-
-        /* Classe para o texto "Roda IA" - COR ALTERADA AQUI */
-        .logo-text {
-            color: #64ffda; /* Agora é Ciano Neon, igual ao desenho */
-            font-size: 2rem;
-            font-weight: 600;
-            margin-left: 15px; /* Espaço entre a imagem e o texto */
-            letter-spacing: -1px;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-        }
-        .hero-pre { color: #64ffda; font-family: monospace; font-size: 1rem; margin-bottom: 20px; }
-        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 10px; }
-        .hero h2 { font-size: 3rem; color: #8892b0; margin-bottom: 30px; opacity: 0.7; }
-        .hero p { max-width: 500px; font-size: 1.1rem; margin-bottom: 40px; }
-
-        /* SECAO FILOSOFIA */
-        .philosophy { padding: 100px 0; background-color: #112240; /* Um tom mais claro */ }
-        .section-title { font-size: 2rem; margin-bottom: 40px; display: flex; align-items: center; }
-        .section-title::after {
-            content: ""; display: block; width: 200px; height: 1px; background: #233554; margin-left: 20px;
-        }
-
-        /* SECAO SERVICOS (GRID) */
-        .services { padding: 100px 0; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .card {
-            background-color: #112240;
-            padding: 30px;
-            border-radius: 4px;
-            transition: transform 0.3s;
-        }
-        .card:hover { transform: translateY(-5px); }
-        .card-icon { font-family: monospace; color: #64ffda; margin-bottom: 20px; font-size: 1.2rem; }
-        .card h3 { font-size: 1.3rem; margin-bottom: 15px; }
-        .card p { font-size: 0.9rem; }
-
-        /* FOOTER */
-        footer { padding: 40px 0; text-align: center; font-size: 0.8rem; font-family: monospace; opacity: 0.5; }
-
-        /* RESPONSIVO */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .hero h2 { font-size: 1.8rem; }
-            .logo-img { height: 80px; } 
-            .logo-text { font-size: 1.5rem; margin-left: 10px; }
+        .fill-1 {
+            font-variation-settings: 'FILL' 1;
         }
     </style>
 </head>
-<body>
-
-    <div class="container">
-        <header>
-            <div class="logo-container">
-                <img src="logo.png" alt="Roda IA Logo" class="logo-img">
-                <div class="logo-text">Roda IA.</div>
+<body class="bg-background-dark text-slate-100 font-display transition-colors duration-300">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16 md:h-20">
+<a class="flex items-center gap-3 hover:opacity-80 transition-opacity" href="https://roda.ia.br">
+<div class="text-primary">
+<span class="material-symbols-outlined text-4xl">
+                        psychology
+                    </span>
+</div>
+<h2 class="text-xl font-black tracking-tighter uppercase text-white">Roda IA</h2>
+</a>
+<nav class="hidden md:flex items-center gap-8">
+<!-- Navigation links removed -->
+</nav>
+<a class="bg-primary text-background-dark px-5 py-2.5 rounded text-sm font-bold hover:brightness-110 transition-all uppercase tracking-wider" href="https://wa.me/5524993183300">
+                Agendar Diagnóstico
+            </a>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section (Dark) -->
+<section class="relative overflow-hidden py-48 lg:py-72 bg-background-dark">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+<div class="flex-1 text-left space-y-8">
+<h1 class="text-4xl lg:text-6xl font-black leading-[1.1] tracking-tight text-white">
+                    Pare de tentar escalar o <span class="text-primary">caos organizacional.</span>
+</h1>
+<p class="text-lg lg:text-xl text-slate-300 leading-relaxed max-w-2xl">
+                    Nós mapeamos os seus processos, cuidamos de seu marketing e entregamos inteligência artificial para sustentar o crescimento de sua empresa. 
+                    Seu negócio não precisa apenas de ferramentas genéricas; ele precisa de estratégia inteligente de ponta a ponta.
+                </p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="inline-block bg-primary text-background-dark px-8 py-4 rounded-lg font-bold text-lg hover:shadow-[0_0_20px_rgba(102,255,219,0.3)] transition-all text-center" href="https://wa.me/5524993183300">
+                        Agende um diagnóstico de processos gratuito.
+                    </a>
+</div>
+<div class="flex items-center gap-4 text-sm font-medium text-primary/60">
+<span class="material-symbols-outlined">verified</span>
+<span>Liderado por Especialistas em Administração</span>
+</div>
+</div>
+<div class="flex-1 w-full max-w-[600px] aspect-square relative">
+<div class="absolute inset-0 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+<div class="relative w-full h-full rounded-2xl overflow-hidden border border-primary/20 shadow-2xl bg-slate-800" data-alt="Professional manager happily reviewing business growth on a dashboard" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuArXrwRP0OCx_oJfQk0Vs1EIch9rDLl7dT8_WdnpUiPM8IAzHrRkoILkBSnqPbl9us3elAq2iihAcdj9isiUmVaSrWC0IWD-OQCB7Ati85lhz3OeZaOSCOmJz17NEsmI9GYkAvRO96l9B4CFYTY-GYseYG_4L6971U5WnDyfauKC5ge-nRCTCN14alVep1TymEwxV0Iv88GpybTu307ozSSgQ71sSRPzQdIAt3PxuoScAS2uj4NTrDcy4lo3VbyvY8QBtHRMxz_DRY'); background-size: cover; background-position: center;">
+</div>
+</div>
+</div>
+</section>
+<!-- Pain & Empathy Section (Light) -->
+<section class="py-60 bg-background-light text-slate-900">
+<div class="max-w-4xl mx-auto px-4 text-center space-y-8">
+<div class="inline-block px-4 py-1.5 rounded-full bg-background-dark text-primary text-xs font-bold uppercase tracking-widest mb-4">
+                Visão Estratégica
             </div>
-            
-            <a href="mailto:contato@roda.ia.br" class="btn" style="padding: 8px 16px; font-size: 0.8rem;">Contato</a>
-        </header>
-
-        <section class="hero">
-            <div class="hero-pre">Tecnologia Invisível</div>
-            <h1>O Silêncio da Eficiência.</h1>
-            <h2>Sua operação, sem atrito.</h2>
-            <p>Transformamos o caos operacional em processos autônomos. Inteligência que não se vê, resultados que não se ignoram.</p>
-            <a href="#" class="btn">Agendar Diagnóstico</a>
-        </section>
-    </div>
-
-    <section class="philosophy">
-        <div class="container">
-            <h2 class="section-title"><span class="highlight">01.</span> A Filosofia</h2>
-            <p style="max-width: 600px;">
-                A verdadeira tecnologia não pede sua atenção, ela libera seu tempo. 
-                <br><br>
-                Na Roda IA, desenhamos arquiteturas de negócios onde a inteligência atua nos bastidores. 
-                Não entregamos ferramentas para você gerenciar; entregamos fluxos que se gerenciam sozinhos.
-                Segurança, discrição e performance.
+<h2 class="text-3xl lg:text-5xl font-black text-slate-900 leading-tight">
+                Você não precisa de mais um software para gerir. Você precisa de <span class="underline decoration-background-dark decoration-4 underline-offset-8">engenharia de processos.</span>
+</h2>
+<p class="text-lg lg:text-xl text-slate-600 leading-relaxed">
+                A maioria das PMEs se convence de que precisam de 10 softwares famosos e 2 agências aleatórias. O que elas não avaliam é que seus processos internos e o marketing seguem mal definidos. O resultado? Gastos excessivos para poucos resultados em conversão. Nosso diferencial: não somos apenas programadores de IA, somos obcecados pela ciência em Administração de Empresas.
             </p>
-        </div>
-    </section>
-
-    <section class="services">
-        <div class="container">
-            <h2 class="section-title"><span class="highlight">02.</span> Módulos de Atuação</h2>
-            <div class="grid">
-                <div class="card">
-                    <div class="card-icon">> O Concierge</div>
-                    <h3>Atendimento Inteligente</h3>
-                    <p>Seus clientes ouvidos e compreendidos instantaneamente. Sem filas, sem menus infinitos. Apenas resolução com elegância.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">> O Operador</div>
-                    <h3>Processos Autônomos</h3>
-                    <p>Burocracia zerada. Contratos, agendamentos e triagens executados com precisão cirúrgica, 24 horas por dia.</p>
-                </div>
-                <div class="card">
-                    <div class="card-icon">> O Estrategista</div>
-                    <h3>Dados & Visão</h3>
-                    <p>Transformamos montanhas de dados em direção clara. Decisões baseadas em fatos e padrões, não em suposições.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <div class="container">
-            <p>Roda IA © 2025. Todos os direitos reservados.</p>
-            <p>Arquitetura de Negócios & Inteligência Operacional.</p>
-        </div>
-    </footer>
-
-</body>
-</html>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12">
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-background-dark text-4xl mb-4">analytics</span>
+<h4 class="font-bold mb-2 text-slate-900">Análise Científica</h4>
+<p class="text-sm text-slate-500">Diagnóstico profundo baseado em fundamentos de administração.</p>
+</div>
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-background-dark text-4xl mb-4">architecture</span>
+<h4 class="font-bold mb-2 text-slate-900">Arquitetura de Fluxos</h4>
+<p class="text-sm text-slate-500">Mapeamento visual de cada etapa da sua operação.</p>
+</div>
+<div class="p-6 bg-white border border-slate-200 rounded-xl shadow-sm">
+<span class="material-symbols-outlined text-background-dark text-4xl mb-4">precision_manufacturing</span>
+<h4 class="font-bold mb-2 text-slate-900">Automação Real</h4>
+<p class="text-sm text-slate-500">Software que trabalha por você, não o contrário.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Solution Section (Dark) -->
+<section class="py-72 bg-background-dark text-white" id="processos">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="mb-16 text-center">
+<h2 class="text-3xl lg:text-5xl font-black text-white mb-4">
+                    Uma Abordagem Sequencial Contínua
+                </h2>
+<h3 class="text-2xl lg:text-3xl font-bold text-primary/80 mb-6">
+                    Organizamos, Promovemos e Automatizamos
+                </h3>
+<p class="text-slate-400 max-w-2xl mx-auto">Três pilares fundamentais para transformar sua operação de ponta a ponta.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Pillar 1 -->
+<div class="group flex flex-col bg-white/5 rounded-2xl overflow-hidden border border-primary/10 hover:border-primary transition-all duration-300">
+<div class="h-56 bg-slate-800 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="People collaborating around a digital process flow map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCMvuXjNeCXkS-I9GGHwHj0sSUgCWhEaOqrp-042w0vfLf64wxLA1i407xsbRjw8WHTLyPX0FiYtFTPeVXWobTFBAfHqPKIIaWp807Ecl_qlN6h2gg0kFev9wuHGhRnTq_p6dbSSNnPogI8gzHZxFUhxv6zAYFWVtCqotKa-69UlHnUGJDRuenIa3wriFTkzOHuYgElBlSsOZX-NLl9k1i-W8oQJhVGqJ9XGXrzyvikaElVqVwK77yFIH9nX81vaQ9oCqMJFUiQfMU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<div class="absolute bottom-4 left-6 flex items-center gap-2">
+<span class="bg-primary text-background-dark px-3 py-1 text-xs font-bold rounded">01</span>
+<span class="text-white font-bold uppercase tracking-widest text-xs">Organizar</span>
+</div>
+</div>
+<div class="p-8 space-y-4">
+<h3 class="text-xl font-bold">Mapeamento de Processos de Negócio</h3>
+<p class="text-slate-400 leading-relaxed">
+                            Encontramos gargalos, identificamos perda financeira e reestruturamos as tarefas e fluxo do time para máxima eficiência.
+                        </p>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="group flex flex-col bg-white/5 rounded-2xl overflow-hidden border border-primary/10 hover:border-primary transition-all duration-300">
+<div class="h-56 bg-slate-800 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern office display showing marketing data analytics" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAg7fAF9_vxsWojvxbocr2a8Lkl8WoPaW5n3218wFVcWOYgtxJRV_E1zO1riJTXrxDAqru42ori7kcYf8W9rzs9RHAT5ptrpA1XFDOzVG0KHPRwEYABzwvB4Ic1oSyUm_tMqH4IuRPzZLzgIuaQrlHddTClNUHr2UBZe4SAKIp35b_SZpEX3nh6gk4-79JvXKmn6PK9RiDVY9mL7eClCObdq7mXnC2sZrhD9g40QohwiNBWMQi5cksowx4sL90b9NZX1IhJ2qnPBL0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<div class="absolute bottom-4 left-6 flex items-center gap-2">
+<span class="bg-primary text-background-dark px-3 py-1 text-xs font-bold rounded">02</span>
+<span class="text-white font-bold uppercase tracking-widest text-xs">Promover</span>
+</div>
+</div>
+<div class="p-8 space-y-4">
+<h3 class="text-xl font-bold">Masterplan de Marketing e Mídia</h3>
+<p class="text-slate-400 leading-relaxed">
+                            Conhecemos a indústria. Fazemos o direcionamento do seu produto, planejamento de mídia e ações 360° para tração comercial.
+                        </p>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="group flex flex-col bg-white/5 rounded-2xl overflow-hidden border border-primary/10 hover:border-primary transition-all duration-300">
+<div class="h-56 bg-slate-800 relative overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Digital representation of high speed AI algorithms and software" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkxJ-173zHY8LIUszW8J6DemrasuFI6LKS2WKcf_7FCFm_aDptvFEST7uqU-7lao1LiuAETN_8DIOTWzZW1NQL9JvtcrUjXzqMEWpCFzlPO_6cMqNogWtlrygbsNZuA-MQFgqmf_aZoIc-LpdAeSF6hNUvMB-cr-9BqIK5TUymyp3TTLmV1gusn8V9vlCr4YcQt7SGUZfoStjF_CbyZhkjSNw0ty-jlOY78Ln06KaWuon9t1qe9kevITYC4OtM1qdpa0O7CaG-PDM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+<div class="absolute bottom-4 left-6 flex items-center gap-2">
+<span class="bg-primary text-background-dark px-3 py-1 text-xs font-bold rounded">03</span>
+<span class="text-white font-bold uppercase tracking-widest text-xs">Automatizar</span>
+</div>
+</div>
+<div class="p-8 space-y-4">
+<h3 class="text-xl font-bold">Software com IA</h3>
+<p class="text-slate-400 leading-relaxed">
+                            Lançamos 'O Concierge' ou 'O Estrategista': sistemas criados para assumir o trabalho burocrático 24/7 sem gestão direta.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final CTA Section (Light) -->
+<section class="py-72 relative overflow-hidden bg-background-light">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-background-dark/5 blur-3xl -z-10 rounded-full"></div>
+<div class="absolute bottom-0 left-0 w-1/4 h-1/2 bg-background-dark/5 blur-3xl -z-10 rounded-full"></div>
+<div class="max-w-5xl mx-auto px-4 text-center space-y-10">
+<h2 class="text-4xl lg:text-6xl font-black text-slate-900 leading-[1.1]">
+                Pronto para acabar com processos confusos e assumir a <span class="text-background-dark italic">liderança automática?</span>
+</h2>
+<p class="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+                Converse agora com a nossa equipe de administradores e engenheiros em processos e descubra quanto tempo sua inteligência poderia começar a te salvar.
+            </p>
+<div class="flex flex-col sm:flex-row justify-center gap-6">
+<a class="inline-block bg-background-dark text-primary px-10 py-5 rounded-lg font-black text-xl hover:scale-105 transition-all shadow-xl shadow-background-dark/10 text-center" href="https://wa.me/5524993183300">
+                    Quero avaliar e escalar a minha empresa agora.
+                </a>
+</div>
+<div class="pt-8 flex flex-wrap justify-center gap-12 opacity-60">
+<div class="flex items-center gap-2 text-slate-700"><span class="material-symbols-outlined">bolt</span> <span class="font-bold">Rápida Implantação</span></div>
+<div class="flex items-center gap-2 text-slate-700"><span class="material-symbols-outlined">security</span> <span class="font-bold">Segurança de Dados</span></div>
+<div class="flex items-center gap-2 text-slate-700"><span class="material-symbols-outlined">trending_up</span> <span class="font-bold">ROI Garantido</span></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background-dark border-t border-primary/10 py-12">
+<div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+<a class="flex items-center gap-2 hover:opacity-80 transition-opacity" href="https://roda.ia.br">
+<span class="material-symbols-outlined text-primary text-3xl">psychology</span>
+<span class="text-xl font-black uppercase text-white">Roda IA</span>
+</a>
+<p class="text-slate-500 text-sm">© 2026 Roda IA - Engenharia de Processos &amp; Tecnologia. Todos os direitos reservados.</p>
+<div class="flex gap-6">
+<!-- Footer links removed -->
+</div>
+</div>
+</footer>
+</body></html>

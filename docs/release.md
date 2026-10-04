@@ -13,12 +13,18 @@ O código anterior foi retirado somente desta cópia de implementação, para co
 5. Validar o mesmo pacote em prévia remota protegida, incluindo cabeçalhos, 404 real, fontes, WhatsApp, robots e ausência de material interno. Revalidar no provedor: servidor local não comprova comportamento Cloudflare.
 6. Antes da transição pública, exigir política local de produção, gates P6/P7, inventário autenticado de DNS/DNSSEC e recuperação do site anterior. A migração de autoridade DNS e a troca do site são passos separados.
 
-## Preparação de produção ainda pendente
+## Revisão local de copy e SEO — outubro de 2026
 
-- Remover `noindex` do HTML e dos cabeçalhos somente na versão autorizada para produção.
-- Alterar `robots.txt` e preencher sitemap com URLs canônicas verificadas.
-- Conferir canonical e URLs absolutas de compartilhamento no domínio definitivo.
-- Repetir build/testes e gerar novo manifesto após essas mudanças.
+Márcio autorizou aplicar os textos aprovados, retirar a seção de acompanhamento, corrigir os links das logomarcas e preparar o SEO nesta cópia. Commit e push ficam a cargo dele. Essa revisão não autoriza nem executa publicação, alteração de DNS ou mudança de hospedagem.
+
+`npm run build` agora gera um candidato local indexável em `dist/`. `npm run build:preview` mantém os bloqueios próprios de prévia nessa mesma pasta. O manifesto informa o modo gerado; `npm start` continua restrito a loopback e sempre envia `noindex`. A geração de um candidato indexável não dispensa os gates de publicação descritos acima.
+
+## Preparação de produção
+
+- Implementado localmente: página inicial indexável, `robots.txt` aberto e sitemap com a URL canônica `https://roda.ia.br/`. A página 404 continua não indexável.
+- Implementado localmente: título, descrição, Open Graph, Twitter Card, ícone de busca e dados estruturados de organização, site e página. Metadados e imagem de compartilhamento acompanham o novo slogan.
+- Antes de publicar, repetir build/testes e confirmar no manifesto o modo `production`. Para prévia remota, gerar novamente o modo `preview` e manter proteção de acesso.
+- Validar no domínio definitivo as respostas HTTP, canonical, sitemap, URLs absolutas de compartilhamento e ausência de bloqueio de indexação imposto pelo provedor.
 - Validar política de cache/segurança, TLS, domínio principal e `www` no ambiente real.
 - Guardar os valores DNS e a referência recuperável da hospedagem anterior. Sem deploy anterior no Pages, o primeiro retorno será à hospedagem anterior, não a um rollback presumido do Pages.
 

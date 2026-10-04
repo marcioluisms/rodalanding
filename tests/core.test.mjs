@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import http from 'node:http';
+import { createHash } from 'node:crypto';
 import { build } from '../scripts/build.mjs';
 import { createServer, csp } from '../scripts/server.mjs';
 
@@ -18,8 +19,40 @@ test('Pacote reproduzível contém apenas material público e respeita orçament
   for (const file of ['index.html', '404.html']) {
     const html = await readFile(new URL(`../dist/${file}`, import.meta.url), 'utf8');
     assert.ok(!/\son\w+=|<script[^>]*src=["']https?:/i.test(html));
-    assert.match(html, /noindex/);
+    if (file === '404.html') assert.match(html, /noindex/);
+    else assert.doesNotMatch(html, /noindex/);
   }
+});
+
+test('Produção indexável e prévia bloqueada, sem contradições entre HTML, headers, robots e sitemap', async () => {
+  const read = file => readFile(new URL(`../dist/${file}`, import.meta.url), 'utf8');
+  await build({ mode: 'preview' });
+  assert.match(await read('index.html'), /content="noindex, nofollow"/);
+  assert.match(await read('_headers'), /^\/\*\n  X-Robots-Tag: noindex, nofollow/m);
+  assert.match(await read('robots.txt'), /Disallow: \//);
+  assert.doesNotMatch(await read('sitemap.xml'), /<loc>/);
+  await build();
+  const home = await read('index.html');
+  assert.match(home, /content="index, follow, max-image-preview:large"/);
+  const headers = await read('_headers');
+  assert.doesNotMatch(headers.split('/404.html')[0], /noindex/);
+  assert.match(headers, /\/404\.html\n  X-Robots-Tag: noindex, nofollow/);
+  assert.match(await read('404.html'), /noindex/);
+  const robots = await read('robots.txt');
+  assert.doesNotMatch(robots, /Disallow: \//);
+  assert.match(robots, /Sitemap: https:\/\/roda\.ia\.br\/sitemap\.xml/);
+  const locations = [...(await read('sitemap.xml')).matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
+  assert.deepEqual(locations, ['https://roda.ia.br/']);
+  const json = home.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1];
+  const data = JSON.parse(json);
+  assert.equal(data['@context'], 'https://schema.org');
+  assert.deepEqual(data['@graph'].map(item => item['@type']), ['Organization', 'WebSite', 'WebPage']);
+  assert.ok(data['@graph'].every(item => item.url === locations[0]));
+  const hash = createHash('sha256').update(json).digest('base64');
+  assert.ok(csp.includes(`'sha256-${hash}'`), 'JSON-LD autorizado pelo hash exato, sem liberar scripts inline');
+  assert.ok(headers.includes(csp));
+  assert.doesNotMatch(csp, /unsafe-inline|unsafe-eval/);
+  assert.equal(JSON.parse(await readFile(new URL('../artifacts/manifest.json', import.meta.url), 'utf8')).mode, 'production');
 });
 
 test('Servidor limita acesso ao pacote, devolve 404 real e impede indexação', async () => {

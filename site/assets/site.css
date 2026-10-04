@@ -12,6 +12,13 @@
   font-weight: 100 900;
   font-display: swap;
 }
+/* Aproxima a largura da fonte temporária e evita que o título perca uma linha ao carregar. */
+@font-face {
+  font-family: 'Schibsted Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT');
+  font-weight: 700 900;
+  size-adjust: 93.28%;
+}
 :root {
   color-scheme: light;
   --peach: #fbdccb;
@@ -35,7 +42,7 @@ button, a { font: inherit; }
 a { color: inherit; text-underline-offset: .28em; }
 button { cursor: pointer; }
 h1, h2, h3, p { margin: 0; }
-h1, h2, h3 { font-family: 'Schibsted Grotesk', Arial, sans-serif; font-weight: 700; letter-spacing: -.035em; text-wrap: balance; }
+h1, h2, h3 { font-family: 'Schibsted Grotesk', 'Schibsted Fallback', Arial, sans-serif; font-weight: 700; letter-spacing: -.035em; text-wrap: balance; }
 h1 { font-size: clamp(2.75rem, 5.6vw, 5.5rem); line-height: 1.02; font-weight: 800; letter-spacing: -.04em; }
 h2 { font-size: clamp(2.125rem, 3.6vw, 3.5rem); line-height: 1.06; font-weight: 800; letter-spacing: -.035em; }
 h3 { font-size: 1.5rem; line-height: 1.2; }
@@ -63,14 +70,6 @@ a:hover { text-decoration-thickness: 2px; }
 .navigation a:hover { background: rgba(243, 244, 241, .08); }
 .navigation .nav-contact { margin-inline-start: 8px; padding: 0 22px; color: var(--coal); background: var(--signal); }
 .navigation .nav-contact:hover { background: var(--peach); }
-.menu-toggle { display: none; align-items: center; gap: 10px; min-width: 96px; min-height: 48px; padding: 8px 18px; color: var(--paper); background: rgba(243, 244, 241, .06); border: 1px solid var(--line-dark); border-radius: 999px; font-weight: 600; }
-.menu-icon { position: relative; width: 16px; height: 2px; background: currentColor; border-radius: 2px; }
-.menu-icon::before, .menu-icon::after { content: ''; position: absolute; left: 0; width: 16px; height: 2px; background: currentColor; border-radius: 2px; transition: transform .2s; }
-.menu-icon::before { top: -5px; }
-.menu-icon::after { top: 5px; }
-.menu-toggle[aria-expanded='true'] .menu-icon { background: transparent; }
-.menu-toggle[aria-expanded='true'] .menu-icon::before { transform: translateY(5px) rotate(45deg); }
-.menu-toggle[aria-expanded='true'] .menu-icon::after { transform: translateY(-5px) rotate(-45deg); }
 
 /* Abertura */
 .hero { position: relative; overflow: hidden; padding-block: 72px calc(120px + var(--radius)); }
@@ -219,15 +218,11 @@ a:hover { text-decoration-thickness: 2px; }
 @media (max-width: 800px) {
   :root { --radius: 28px; --header: 72px; }
   .container { padding-inline: 20px; }
-  .site-header { position: relative; }
-  [data-menu-ready] .site-header { position: sticky; }
-  .header-layout { flex-wrap: wrap; gap: 0 16px; padding-block: 12px; min-height: var(--header); }
+  .header-layout { gap: 16px; padding-block: 12px; min-height: var(--header); }
   .brand { width: 140px; }
   .brand img { width: 128px; }
-  [data-menu-ready] .menu-toggle { display: inline-flex; }
-  .navigation { flex-direction: column; align-items: stretch; width: 100%; gap: 4px; padding-block: 16px 8px; }
   .navigation a { padding: 0 16px; }
-  .navigation .nav-contact { margin: 8px 0 0; justify-content: center; }
+  .navigation .nav-contact { margin: 0; justify-content: center; }
   .hero { padding-block: 40px calc(72px + var(--radius)); }
   .hero-grid { display: flex; flex-direction: column; align-items: stretch; }
   .hero-art { order: 2; max-width: 340px; margin: 40px auto 0; }

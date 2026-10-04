@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir, readdir, rm, copyFile, lstat } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir, rm, lstat } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
@@ -27,7 +27,8 @@ async function sourceFiles(directory, base = directory) {
   return found;
 }
 
-export async function build() {
+export async function build({ mode = 'production' } = {}) {
+  if (!['production', 'preview'].includes(mode)) throw new Error('Modo de build inválido');
   const source = path.join(root, 'site');
   const dist = path.join(root, 'dist');
   const files = (await sourceFiles(source)).sort();
@@ -44,15 +45,26 @@ export async function build() {
     const from = path.join(source, file);
     const to = path.join(dist, file);
     await mkdir(path.dirname(to), { recursive: true });
-    await copyFile(from, to);
-    const bytes = await readFile(to);
+    let bytes = await readFile(from);
+    // A origem é indexável; prévias continuam bloqueadas em todas as camadas.
+    if (mode === 'preview') {
+      if (file === 'index.html') bytes = Buffer.from(bytes.toString('utf8').replace('content="index, follow, max-image-preview:large"', 'content="noindex, nofollow"'));
+      if (file === '_headers') bytes = Buffer.from(bytes.toString('utf8').replace('/*\n', '/*\n  X-Robots-Tag: noindex, nofollow\n'));
+      if (file === 'robots.txt') bytes = Buffer.from('User-agent: *\nDisallow: /\n');
+      if (file === 'sitemap.xml') bytes = Buffer.from('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>\n');
+    }
+    await writeFile(to, bytes);
     manifest.push({ file, bytes: bytes.length, sha256: sha256(bytes) });
   }
-  const content = JSON.stringify({ mode: 'preview', files: manifest }, null, 2) + '\n';
+  const content = JSON.stringify({ mode, files: manifest }, null, 2) + '\n';
   await mkdir(path.join(root, 'artifacts'), { recursive: true });
   await writeFile(path.join(root, 'artifacts', 'manifest.json'), content);
-  console.log(`Artefato de prévia: ${files.length} arquivos; manifesto ${sha256(content)}`);
+  console.log(`Artefato ${mode}: ${files.length} arquivos; manifesto ${sha256(content)}`);
   return manifest;
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await build();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  const args = process.argv.slice(2);
+  if (args.some(arg => arg !== '--preview') || args.length > 1) throw new Error('Uso: node scripts/build.mjs [--preview]');
+  await build({ mode: args.includes('--preview') ? 'preview' : 'production' });
+}

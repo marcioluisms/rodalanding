@@ -19,30 +19,35 @@ try {
     await cdp.send('Network.emulateNetworkConditions', { offline: false, latency: 150, downloadThroughput: 1600000 / 8, uploadThroughput: 750000 / 8 });
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 });
     await page.addInitScript(() => {
-      window.metrics = { lcpMs: null, cls: 0, menuPaintMs: null };
+      window.metrics = { lcpMs: null, cls: 0, contactPaintMs: null, layoutShifts: [] };
       new PerformanceObserver(list => { for (const entry of list.getEntries()) window.metrics.lcpMs = entry.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
-      new PerformanceObserver(list => { for (const entry of list.getEntries()) if (!entry.hadRecentInput) window.metrics.cls += entry.value; }).observe({ type: 'layout-shift', buffered: true });
+      new PerformanceObserver(list => {
+        for (const entry of list.getEntries()) if (!entry.hadRecentInput) {
+          window.metrics.cls += entry.value;
+          window.metrics.layoutShifts.push({ value: entry.value, time: entry.startTime, sources: entry.sources.map(source => ({ element: source.node?.id || source.node?.className || source.node?.nodeName, before: source.previousRect.toJSON(), after: source.currentRect.toJSON() })) });
+        }
+      }).observe({ type: 'layout-shift', buffered: true });
       document.addEventListener('click', event => {
-        if (event.target.closest('#menu-toggle')) {
+        if (event.target.closest('#navigation a[href="#contato"]')) {
           const start = performance.now();
-          requestAnimationFrame(() => requestAnimationFrame(() => window.metrics.menuPaintMs = performance.now() - start));
+          requestAnimationFrame(() => requestAnimationFrame(() => window.metrics.contactPaintMs = performance.now() - start));
         }
       }, true);
     });
     await page.goto(base, { waitUntil: 'networkidle' });
     await page.evaluate(() => document.fonts.ready);
-    await page.locator('#menu-toggle').click();
-    await page.waitForFunction(() => window.metrics.menuPaintMs !== null);
+    await page.locator('#navigation a[href="#contato"]').click();
+    await page.waitForFunction(() => window.metrics.contactPaintMs !== null);
     const metrics = await page.evaluate(() => ({ ...window.metrics, transferBytes: [...performance.getEntriesByType('navigation'), ...performance.getEntriesByType('resource')].reduce((sum, entry) => sum + entry.transferSize, 0) }));
     report.runs.push(metrics);
     await context.close();
   }
   report.summary = {};
-  for (const field of ['lcpMs', 'cls', 'menuPaintMs', 'transferBytes']) {
+  for (const field of ['lcpMs', 'cls', 'contactPaintMs', 'transferBytes']) {
     const values = report.runs.map(run => run[field]).sort((a, b) => a - b);
     report.summary[field] = { median: values[1], min: values[0], max: values[2] };
   }
-  report.passed = report.runs.every(run => run.lcpMs !== null && run.lcpMs <= 2500 && run.cls <= .1 && run.menuPaintMs <= 200 && run.transferBytes <= 450 * 1024);
+  report.passed = report.runs.every(run => run.lcpMs !== null && run.lcpMs <= 2500 && run.cls <= .1 && run.contactPaintMs <= 200 && run.transferBytes <= 450 * 1024);
 } finally {
   await browser.close(); await mkdir(output, { recursive: true });
   await writeFile(path.join(output, 'performance-results.json'), JSON.stringify(report, null, 2));

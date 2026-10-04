@@ -6,7 +6,7 @@ As duas assinaturas horizontais SVG e os ícones PNG foram copiados dos arquivos
 
 `share.png` é composição nova com fundo e assinatura aprovados e o texto literal de A-01.1. Sua fonte editável está em `scripts/share-card.html`.
 
-Os 15 itens e 34 blocos públicos aprovados são preservados na página. `tests/copy-approved.json` contém apenas essa referência pública, para detectar alterações involuntárias; não integra `dist/`. O apoio D-06 permanece visível, e os três caminhos de A-03 têm a mesma hierarquia.
+A revisão de copy aprovada em outubro de 2026 reúne 11 itens e 25 blocos públicos. A seção A-05 de acompanhamento foi removida por decisão de Márcio, assim como as explicações contratuais nos demais trechos. `tests/copy-approved.json` contém a referência pública atual, para detectar alterações involuntárias; não integra `dist/`. Os três caminhos de A-03 têm a mesma hierarquia. O novo slogan aparece no título, no hero e na imagem de compartilhamento.
 
 O contato usa o destino aprovado em D-04, sem mensagem predefinida. Nenhum envio foi feito durante desenvolvimento ou testes.
 

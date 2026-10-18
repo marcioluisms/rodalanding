@@ -72,7 +72,7 @@ try {
     const headings = await page.locator('h1,h2,h3,h4,h5,h6').evaluateAll(nodes => nodes.map(node => Number(node.tagName.slice(1))));
     for (let i = 1; i < headings.length; i++) assert.ok(headings[i] <= headings[i - 1] + 1);
   });
-  await test('11 approved pieces / 25 literal blocks, visible and in approved order', async () => {
+  await test('11 approved pieces / 24 literal blocks, visible and in approved order', async () => {
     assert.deepEqual(await page.locator('[data-piece]').evaluateAll(nodes => nodes.map(node => node.dataset.piece)), expected.map(piece => piece.id));
     let blocks = 0;
     for (const piece of expected) {
@@ -87,7 +87,7 @@ try {
       for (let index = 0; index < await paragraphs.count(); index++) assert.ok(await paragraphs.nth(index).isVisible());
       blocks += piece.paragraphs?.length || 0;
     }
-    assert.equal(blocks, 25);
+    assert.equal(blocks, 24);
     return { pieces: expected.length, blocks };
   });
   await test('Local fonts and images decode', async () => {

@@ -68,7 +68,7 @@ a:hover { text-decoration-thickness: 2px; }
 .navigation { display: flex; align-items: center; gap: 8px; }
 .navigation a { display: flex; align-items: center; min-height: 48px; padding: 0 16px; border-radius: 999px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: background-color .2s, color .2s; }
 .navigation a:hover { background: rgba(243, 244, 241, .08); }
-.navigation .nav-contact { margin-inline-start: 8px; padding: 0 22px; color: var(--coal); background: var(--signal); }
+.navigation .nav-contact { margin-inline-start: 8px; padding: 0 22px; color: var(--coal); background: var(--signal); white-space: nowrap; }
 .navigation .nav-contact:hover { background: var(--peach); }
 
 /* Abertura */
@@ -256,6 +256,12 @@ a:hover { text-decoration-thickness: 2px; }
   .contact h2 { font-size: clamp(2.25rem, 10vw, 3rem); margin-block-end: 28px; }
   .contact-action { width: 100%; gap: 12px; padding-inline-start: 20px; text-align: left; font-size: 1rem; }
   .site-footer { padding-block-end: 32px; }
+}
+@media (max-width: 560px) {
+  .site-header { position: relative; }
+  .header-layout { flex-wrap: wrap; row-gap: 8px; }
+  .navigation { width: 100%; }
+  .navigation .nav-contact { width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }

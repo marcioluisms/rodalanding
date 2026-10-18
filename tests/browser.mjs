@@ -124,7 +124,7 @@ try {
         contact++;
       }
     }
-    assert.equal(contact, 1, 'One deliberate WhatsApp CTA');
+    assert.equal(contact, 2, 'Header and contact-section WhatsApp CTAs');
     assert.equal(brandLinks, 2, 'Header and footer link to the canonical home');
     return { localAnchors: links.filter(link => link.href.startsWith('#')).length, contactLinks: contact, destinationNumber: 'Not repeated in evidence; compare with D-04 separately.' };
   });
@@ -149,19 +149,18 @@ try {
       return { violations: 0, incomplete: result.incomplete.map(item => item.id), passes: result.passes.length };
     });
   }
-  await test('Contato é o único item, visível no celular e acessível por teclado', async () => {
+  await test('WhatsApp do topo é o único item, igual ao do contato, visível no celular e acessível por teclado', async () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(base.href, { waitUntil: 'networkidle' });
     const nav = page.locator('#navigation');
     assert.equal(await nav.locator('a').count(), 1);
     assert.equal(await page.locator('#menu-toggle').count(), 0);
     assert.ok(await nav.isVisible());
-    const contact = nav.locator('a[href="#contato"]');
+    const contact = nav.locator('a.nav-contact');
+    const cta = page.locator('[data-copy="cta"]');
     assert.ok(await contact.isVisible());
-    await contact.focus();
-    await page.keyboard.press('Enter');
-    assert.equal(new URL(page.url()).hash, '#contato');
-    assert.ok(await page.locator('#contato').evaluate(node => document.activeElement === node));
+    assert.equal(await contact.getAttribute('href'), await cta.getAttribute('href'));
+    assert.equal(normalize(await contact.innerText()), normalize(expected.find(piece => piece.cta).cta));
     await contact.focus();
     const focus = await contact.evaluate(node => { const css = getComputedStyle(node); return { style: css.outlineStyle, width: css.outlineWidth, color: css.outlineColor }; });
     assert.notEqual(focus.style, 'none');
@@ -169,7 +168,7 @@ try {
     await contact.scrollIntoViewIfNeeded();
     await page.screenshot({ path: path.join(output, 'foco-contato-topo.png') });
     report.screenshots.push('foco-contato-topo.png');
-    return { anchor: '#contato', focus };
+    return { href: 'wa.me (same as contact CTA)', focus };
   });
   await test('JavaScript off: essential copy, contact and mobile navigation remain available', async () => {
     const noJS = await context({ javaScriptEnabled: false, viewport: { width: 320, height: 844 } });
@@ -180,9 +179,7 @@ try {
     assert.equal(await noJSPage.locator('[data-piece]').count(), 11);
     assert.ok(await noJSPage.locator('[data-copy="cta"]').isVisible());
     assert.equal(await noJSPage.locator('#menu-toggle').isVisible(), false);
-    await noJSPage.locator('#navigation a[href="#contato"]').click();
-    assert.equal(new URL(noJSPage.url()).hash, '#contato');
-    await noJSPage.goto(base.href, { waitUntil: 'networkidle' });
+    assert.match(await noJSPage.locator('#navigation a.nav-contact').getAttribute('href'), /^https:\/\/wa\.me\/\d{10,15}$/);
     await noJSPage.screenshot({ path: path.join(output, 'sem-javascript-320.png'), fullPage: true });
     report.screenshots.push('sem-javascript-320.png');
   });
